@@ -1,0 +1,7 @@
+[*.cs]
+csharp_new_line_before_open_brace = none
+csharp_new_line_before_else = false
+csharp_new_line_before_catch = false
+csharp_new_line_before_finally = false
+csharp_space_after_cast = true
+csharp_space_between_method_declaration_name_and_open_parenthesis = true
