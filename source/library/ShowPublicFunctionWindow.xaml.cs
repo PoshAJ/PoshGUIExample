@@ -24,7 +24,7 @@ namespace Example {
         #region Private Methods
 
         private void Button_Click (object sender, RoutedEventArgs e) {
-            _parameters["InputObject"] = textbox.Text;
+            _parameters["InputObject"] = tbInput.Text;
 
             Close();
         }
