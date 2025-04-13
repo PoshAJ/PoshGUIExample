@@ -16,7 +16,7 @@
 
   <Target Name="Delete" AfterTargets="Rename">
     <Delete Files="$(OutDir)/$(ProjectName).pdb" />
-    <Delete Files="$(OutDir)/$(ProjectName).deps.json" />
+    <Delete Files="$(OutDir)/System.Management.Automation.dll" />
   </Target>
 
   <Target Name="DirectoryClean" AfterTargets="Clean">
