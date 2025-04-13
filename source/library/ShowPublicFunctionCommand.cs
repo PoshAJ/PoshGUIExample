@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
-using System.Text;
 
 namespace Example {
     [Cmdlet(VerbsCommon.Show, "PublicFunction")]
@@ -52,22 +51,16 @@ namespace Example {
             Dictionary<string, string> parameters = _proxy.GetParameters();
 
             // check mandatory parameter
-            if (string.IsNullOrEmpty(parameters["InputObject"])) {
+            if (!parameters.TryGetValue("InputObject", out string InputObject) || string.IsNullOrEmpty(InputObject)) {
                 return;
             }
 
-            StringBuilder sb = new StringBuilder();
-
-            foreach (KeyValuePair<string, string> kvp in parameters) {
-                sb.Append($" -{kvp.Key} '{kvp.Value}'");
-            }
-
             InvokeCommand.InvokeScript(
-                $"Get-PublicFunction{sb.ToString()}",
+                "param ([System.Collections.IDictionary] $Parameters); Get-PublicFunction @Parameters",
                 false,
                 PipelineResultTypes.Output | PipelineResultTypes.Warning | PipelineResultTypes.Error,
                 null,
-                null
+                parameters
             );
         }
 
