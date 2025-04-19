@@ -5,26 +5,26 @@ using System.Collections.Generic;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 
-namespace Example {
-    [Cmdlet(VerbsCommon.Show, "PublicFunction")]
+namespace PoshGUIExample.ShowGreeting {
+    [Cmdlet(VerbsCommon.Show, "Greeting")]
     [OutputType(typeof(void))]
-    public class ShowPublicFunctionCommand : PSCmdlet, IDisposable {
+    public class ShowGreetingCommand : PSCmdlet, IDisposable {
         #region Properties
 
-        private ShowPublicFunctionProxy _proxy;
+        private ShowGreetingProxy _proxy;
 
         #endregion Properties
 
         #region Constructors
 
-        public ShowPublicFunctionCommand () { }
+        public ShowGreetingCommand () { }
 
         #endregion Constructors
 
         #region PSCmdlet Methods
 
         protected override void BeginProcessing () {
-            _proxy = new ShowPublicFunctionProxy();
+            _proxy = new ShowGreetingProxy();
         }
 
         protected override void ProcessRecord () {
@@ -41,7 +41,7 @@ namespace Example {
                 ThrowTerminatingError(
                     new ErrorRecord(
                         exception,
-                        "PublicFunctionInvocationException",
+                        "PoshGUIExample.GreetingInvocationException",
                         ErrorCategory.OperationStopped,
                         null
                     )
@@ -50,13 +50,21 @@ namespace Example {
 
             Dictionary<string, string> parameters = _proxy.GetParameters();
 
-            // check mandatory parameter
             if (!parameters.TryGetValue("InputObject", out string InputObject) || string.IsNullOrEmpty(InputObject)) {
+                WriteError(
+                    new ErrorRecord(
+                        new GreetingArgumentException("Cannot bind argument to parameter 'InputObject' because it is an empty string."),
+                        "PoshGUIExample.GreetingArgumentException",
+                        ErrorCategory.InvalidArgument,
+                        null
+                    )
+                );
+
                 return;
             }
 
             InvokeCommand.InvokeScript(
-                "param ([System.Collections.IDictionary] $Parameters); Get-PublicFunction @Parameters",
+                "param ([System.Collections.IDictionary] $Parameters); Send-Greeting @Parameters",
                 false,
                 PipelineResultTypes.Output | PipelineResultTypes.Warning | PipelineResultTypes.Error,
                 null,

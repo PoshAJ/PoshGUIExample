@@ -1,4 +1,4 @@
-function Get-PublicFunction {
+function Send-Greeting {
     # Copyright (c) 2025 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
     [OutputType([string])]
@@ -13,13 +13,13 @@ function Get-PublicFunction {
 
     ## LOGIC ###################################################################
     begin {
-        [string] $Greeting = Get_PrivateFunction
+        [string] $Greeting = Get_Greeting
     }
 
     process {
         foreach ($Object in $InputObject) {
             if ([string]::IsNullOrEmpty($Object)) {
-                $PSCmdlet.WriteError(( New_FunctionException -Message "Cannot bind argument to parameter 'InputObject' because it is an empty string." ))
+                $PSCmdlet.WriteError(( New_GreetingArgumentException -Message "Cannot bind argument to parameter 'InputObject' because it is an empty string." ))
 
                 continue
             }

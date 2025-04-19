@@ -3,8 +3,8 @@
 using System.Windows;
 using System.Collections.Concurrent;
 
-namespace Example {
-    public partial class ShowPublicFunctionWindow : Window {
+namespace PoshGUIExample.ShowGreeting {
+    public partial class ShowGreetingWindow : Window {
         #region Properties
 
         private ConcurrentDictionary<string, string> _parameters;
@@ -13,7 +13,7 @@ namespace Example {
 
         #region Constructors
 
-        public ShowPublicFunctionWindow (ConcurrentDictionary<string, string> parameters) {
+        public ShowGreetingWindow (ConcurrentDictionary<string, string> parameters) {
             InitializeComponent();
 
             _parameters = parameters;
@@ -23,7 +23,11 @@ namespace Example {
 
         #region Private Methods
 
-        private void Button_Click (object sender, RoutedEventArgs e) {
+        private void Button_Reset (object sender, RoutedEventArgs e) {
+            tbInput.Clear();
+        }
+
+        private void Button_Submit (object sender, RoutedEventArgs e) {
             _parameters["InputObject"] = tbInput.Text;
 
             Close();

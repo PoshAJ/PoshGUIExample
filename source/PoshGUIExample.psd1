@@ -1,7 +1,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'Example.dll'
+RootModule = 'PoshGUIExample.dll'
 
 # Version number of this module.
 ModuleVersion = '0.0.0'
@@ -58,7 +58,7 @@ Description = 'Example Module'
 # FormatsToProcess = @()
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-NestedModules = @('Example.psm1')
+NestedModules = @('PoshGUIExample.psm1')
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = @()
@@ -90,10 +90,10 @@ PrivateData = @{
         # Tags = @()
 
         # A URL to the license for this module.
-        LicenseUri = 'https://gitlab.com/PoshAJ/Example/-/blob/main/LICENSE.md'
+        LicenseUri = 'https://gitlab.com/PoshAJ/PoshGUIExample/-/blob/main/LICENSE.md'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://gitlab.com/PoshAJ/Example'
+        ProjectUri = 'https://gitlab.com/PoshAJ/PoshGUIExample'
 
         # A URL to an icon representing this module.
         # IconUri = ''
@@ -115,7 +115,7 @@ PrivateData = @{
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-HelpInfoURI = 'https://gitlab.com/PoshAJ/Example/-/blob/main/README.md'
+HelpInfoURI = 'https://gitlab.com/PoshAJ/PoshGUIExample/-/blob/main/README.md'
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''

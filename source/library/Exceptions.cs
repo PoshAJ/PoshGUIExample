@@ -2,8 +2,8 @@
 
 using System;
 
-namespace Example {
-    public class FunctionException : Exception {
-        public FunctionException (string Message) : base(Message) { }
+namespace PoshGUIExample {
+    public class GreetingArgumentException : Exception {
+        public GreetingArgumentException (string Message) : base(Message) { }
     }
 }

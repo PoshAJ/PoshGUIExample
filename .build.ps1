@@ -2,7 +2,7 @@ param (
     [version] $ModuleVersion = '0.0.0'
 )
 
-[string] $Script:RootModule = 'Example'
+[string] $Script:RootModule = 'PoshGUIExample'
 
 
 task CleanModule {
@@ -40,7 +40,7 @@ task BuildLibrary {
 
     exec { dotnet build './source/library/library.csproj' --output "./output/${RootModule}/${ModuleVersion}/" --property:Version="${ModuleVersion}" --property:Module="${RootModule}" --configuration 'Release' }
 
-    [string[]] $Script:LibraryFunctions = 'Show-PublicFunction' # TODO Get List Dynamically
+    [string[]] $Script:LibraryFunctions = 'Show-Greeting' # TODO Get List Dynamically
 }
 
 

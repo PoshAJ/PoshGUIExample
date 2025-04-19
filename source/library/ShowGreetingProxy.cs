@@ -6,21 +6,21 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 
-namespace Example {
-    public class ShowPublicFunctionProxy : IDisposable {
+namespace PoshGUIExample.ShowGreeting {
+    public class ShowGreetingProxy : IDisposable {
         #region Properties
 
         private ConcurrentDictionary<string, string> _parameters;
         private AutoResetEvent _loaded;
         private AutoResetEvent _closed;
-        private ShowPublicFunctionWindow _window;
+        private ShowGreetingWindow _window;
         private Exception _exception;
 
         #endregion Properties
 
         #region Constructors
 
-        public ShowPublicFunctionProxy () {
+        public ShowGreetingProxy () {
             _parameters = new ConcurrentDictionary<string, string>();
         }
 
@@ -37,7 +37,7 @@ namespace Example {
                     new ThreadStart(
                         delegate {
                             try {
-                                _window = new ShowPublicFunctionWindow(_parameters);
+                                _window = new ShowGreetingWindow(_parameters);
 
                                 _window.Loaded += (object sender, RoutedEventArgs e) => { _loaded.Set(); };
                                 _window.Closed += (object sender, EventArgs e) => { _closed.Set(); };
