@@ -23,11 +23,11 @@ namespace PoshGUIExample.ShowGreeting {
 
         #region Private Methods
 
-        private void Button_Reset (object sender, RoutedEventArgs e) {
+        private void Button_Reset (object sender, RoutedEventArgs eventArgs) {
             tbInput.Clear();
         }
 
-        private void Button_Submit (object sender, RoutedEventArgs e) {
+        private void Button_Submit (object sender, RoutedEventArgs eventArgs) {
             _parameters["InputObject"] = tbInput.Text;
 
             Close();

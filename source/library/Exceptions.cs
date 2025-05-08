@@ -4,6 +4,6 @@ using System;
 
 namespace PoshGUIExample {
     public class GreetingArgumentException : Exception {
-        public GreetingArgumentException (string Message) : base(Message) { }
+        public GreetingArgumentException (string message) : base(message) { }
     }
 }

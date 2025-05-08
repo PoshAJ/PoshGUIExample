@@ -50,7 +50,7 @@ namespace PoshGUIExample.ShowGreeting {
 
             Dictionary<string, string> parameters = _proxy.GetParameters();
 
-            if (!parameters.TryGetValue("InputObject", out string InputObject) || string.IsNullOrEmpty(InputObject)) {
+            if (!parameters.TryGetValue("InputObject", out string inputObject) || string.IsNullOrEmpty(inputObject)) {
                 WriteError(
                     new ErrorRecord(
                         new GreetingArgumentException("Cannot bind argument to parameter 'InputObject' because it is an empty string."),

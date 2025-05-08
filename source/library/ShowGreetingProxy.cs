@@ -39,8 +39,8 @@ namespace PoshGUIExample.ShowGreeting {
                             try {
                                 _window = new ShowGreetingWindow(_parameters);
 
-                                _window.Loaded += (object sender, RoutedEventArgs e) => { _loaded.Set(); };
-                                _window.Closed += (object sender, EventArgs e) => { _closed.Set(); };
+                                _window.Loaded += (object sender, RoutedEventArgs eventArgs) => { _loaded.Set(); };
+                                _window.Closed += (object sender, EventArgs eventArgs) => { _closed.Set(); };
 
                                 _window.ShowDialog();
                             } catch (Exception exception) {
