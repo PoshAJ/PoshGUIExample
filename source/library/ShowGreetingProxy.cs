@@ -43,11 +43,11 @@ namespace PoshGUIExample.ShowGreeting {
                                 _window.Closed += (object sender, EventArgs e) => { _closed.Set(); };
 
                                 _window.ShowDialog();
-                            } catch (Exception e) {
-                                if (e.InnerException != null) {
-                                    _exception = e.InnerException;
+                            } catch (Exception exception) {
+                                if (exception.InnerException != null) {
+                                    _exception = exception.InnerException;
                                 } else {
-                                    _exception = e;
+                                    _exception = exception;
                                 }
                             }
                         }
@@ -86,11 +86,9 @@ namespace PoshGUIExample.ShowGreeting {
         public Exception GetLastException () {
             Exception last = _exception;
 
-            if (last == null) {
-                return _exception;
+            if (last != null) {
+                _exception = null;
             }
-
-            _exception = null;
 
             return last;
         }
