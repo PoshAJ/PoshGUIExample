@@ -1,5 +1,5 @@
 function Get_Greeting {
-    # Copyright (c) 2025 Anthony J. Raymond, MIT License (see manifest for details)
+    # Copyright (c) 2025 Anthony J. Raymond, MIT License
     [CmdletBinding()]
     [OutputType([string])]
     param ()
