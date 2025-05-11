@@ -1,7 +1,8 @@
-// Copyright (c) 2025 Anthony J. Raymond, MIT License (see manifest for details)
+// Copyright (c) 2025 Anthony J. Raymond, MIT License
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 
@@ -9,11 +10,11 @@ namespace PoshGUIExample.ShowGreeting {
     [Cmdlet(VerbsCommon.Show, "Greeting")]
     [OutputType(typeof(void))]
     public class ShowGreetingCommand : PSCmdlet, IDisposable {
-        #region Properties
+        #region Fields
 
         private ShowGreetingProxy _proxy;
 
-        #endregion Properties
+        #endregion Fields
 
         #region Constructors
 
@@ -21,23 +22,40 @@ namespace PoshGUIExample.ShowGreeting {
 
         #endregion Constructors
 
-        #region PSCmdlet Methods
+        #region IDisposable Members
+
+        public void Dispose () {
+            if (_proxy != null)
+                _proxy.Dispose();
+
+            _proxy = null;
+
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion IDisposable Members
+
+        #region PSCmdlet Members
 
         protected override void BeginProcessing () {
             _proxy = new ShowGreetingProxy();
         }
 
         protected override void ProcessRecord () {
+            Trace.Assert(_proxy != null);
+
             _proxy.ShowWindow();
             _proxy.ActivateWindow();
         }
 
         protected override void EndProcessing () {
+            Trace.Assert(_proxy != null);
+
             _proxy.WaitWindow();
 
             Exception exception = _proxy.GetLastException();
 
-            if (exception != null) {
+            if (exception != null)
                 ThrowTerminatingError(
                     new ErrorRecord(
                         exception,
@@ -46,22 +64,13 @@ namespace PoshGUIExample.ShowGreeting {
                         null
                     )
                 );
-            }
+
+            if (!_proxy.GetDialogResult())
+                return;
 
             Dictionary<string, string> parameters = _proxy.GetParameters();
 
-            if (!parameters.TryGetValue("InputObject", out string inputObject) || string.IsNullOrEmpty(inputObject)) {
-                WriteError(
-                    new ErrorRecord(
-                        new GreetingArgumentException("Cannot bind argument to parameter 'InputObject' because it is an empty string."),
-                        "PoshGUIExample.GreetingArgumentException",
-                        ErrorCategory.InvalidArgument,
-                        null
-                    )
-                );
-
-                return;
-            }
+            Trace.Assert(parameters.Count > 0);
 
             InvokeCommand.InvokeScript(
                 "param ([System.Collections.IDictionary] $Parameters); Send-Greeting @Parameters",
@@ -73,20 +82,11 @@ namespace PoshGUIExample.ShowGreeting {
         }
 
         protected override void StopProcessing () {
+            Trace.Assert(_proxy != null);
+
             _proxy.CloseWindow();
         }
 
-        #endregion PSCmdlet Methods
-
-        #region Public Methods
-
-        public void Dispose () {
-            _proxy?.Dispose();
-            _proxy = null;
-
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion Public Methods
+        #endregion PSCmdlet Members
     }
 }

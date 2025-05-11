@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2025 Anthony J. Raymond, MIT License (see manifest for details) -->
+<!-- Copyright (c) 2025 Anthony J. Raymond, MIT License -->
 
 <Window x:Class="PoshGUIExample.ShowGreeting.ShowGreetingWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,7 +6,7 @@
         xmlns:this="clr-namespace:PoshGUIExample.ShowGreeting"
         Title="Show-Greeting"
         Height="112" Width="275"
-        FocusManager.FocusedElement="{Binding ElementName=tbInput}">
+        FocusManager.FocusedElement="{Binding ElementName=InputObjectTextBox}">
         <Grid Margin="5">
                 <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
@@ -16,26 +16,33 @@
                 <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <Label
                         Content="Enter Name:"
                         Margin="2"
                         Grid.Row="0" Grid.Column="0" />
-                <TextBox x:Name="tbInput"
+                <TextBox x:Name="InputObjectTextBox"
+                        Text="{Binding Path=parameters[InputObject], UpdateSourceTrigger=PropertyChanged}"
                         Margin="2"
-                        Grid.Row="0" Grid.Column="1" />
+                        Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
 
-                <Button x:Name="btReset"
+                <Button x:Name="ResetButton"
                         Content="Reset"
-                        Click="Button_Reset"
+                        Command="{Binding Path=ResetCommand}"
                         Margin="2"
                         Grid.Row="1" Grid.Column="0" />
-                <Button x:Name="btSubmit"
-                        IsDefault="true"
-                        Content="Submit"
-                        Click="Button_Submit"
+                <Button x:Name="CancelButton"
+                        Content="Cancel"
+                        Click="OnCancel" IsCancel="true"
                         Margin="2"
                         Grid.Row="1" Grid.Column="1" />
+                <Button x:Name="SubmitButton"
+                        Content="Submit"
+                        Click="OnDefault" IsDefault="true"
+                        IsEnabled="{Binding Path=mandatoryParametersHaveValues}"
+                        Margin="2"
+                        Grid.Row="1" Grid.Column="2" />
         </Grid>
 </Window>
