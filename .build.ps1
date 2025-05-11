@@ -38,7 +38,7 @@ task LoadModuleManifest {
 task BuildLibrary {
     assert (Test-Path -Path './source/library/library.csproj')
 
-    exec { dotnet build './source/library/library.csproj' --output "./output/${RootModule}/${ModuleVersion}/" --property:Version="${ModuleVersion}" --property:Module="${RootModule}" --configuration 'Release' }
+    exec { dotnet publish './source/library/library.csproj' --output "./output/${RootModule}/${ModuleVersion}/" --property:AssemblyName="${RootModule}" --property:Version="${ModuleVersion}" --configuration 'Release' }
 
     [string[]] $Script:LibraryFunctions = 'Show-Greeting' # TODO Get List Dynamically
 }

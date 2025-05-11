@@ -1,26 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net462</TargetFramework>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" PrivateAssets="All" />
-  </ItemGroup>
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <DebugSymbols>False</DebugSymbols>
+        <DebugType>None</DebugType>
+    </PropertyGroup>
 
-  <Target Name="Rename" AfterTargets="AfterBuild">
-    <Move SourceFiles="$(OutDir)/$(ProjectName).dll" DestinationFiles="$(OutDir)/$(Module).dll" />
-  </Target>
+    <ItemGroup>
+        <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" PrivateAssets="All" />
+    </ItemGroup>
 
-  <Target Name="Delete" AfterTargets="Rename">
-    <Delete Files="$(OutDir)/$(ProjectName).pdb" />
-    <Delete Files="$(OutDir)/System.Management.Automation.dll" />
-  </Target>
-
-  <Target Name="DirectoryClean" AfterTargets="Clean">
-    <RemoveDir Directories="$(BaseOutputPath)" />
-    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
-  </Target>
+    <Target Name="DirectoryClean" AfterTargets="Clean">
+        <RemoveDir Directories="$(BaseOutputPath)" />
+        <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+    </Target>
 </Project>
