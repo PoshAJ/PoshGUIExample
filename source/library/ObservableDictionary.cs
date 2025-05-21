@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Shimmy Weitzhandler, MS-PL License
-// http://blogs.microsoft.co.il/shimmy/2010/12/26/observabledictionarylttkey-tvaluegt-c/
+// http://blogs.microsoft.co.il/blogs/shimmy/archive/2010/12/26/observabledictionary-lt-tkey-tvalue-gt-c.aspx
 
 using System;
 using System.Collections;
